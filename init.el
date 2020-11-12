@@ -16,8 +16,9 @@
 (if (member "Hack" (font-family-list))
     (set-face-attribute 'default nil :font "Hack" :height 120))
 
-;; load theme
-(load-theme 'tango-dark)
+;; Keybindings
+;; make ESC behave like C-g, just for convenience
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Package management
 (require 'package)
@@ -35,15 +36,44 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+(use-package diminish)
+
+;; counsel completion package
+(use-package counsel
+  :diminish
+  :bind (("C-s" . swiper)
+	 ("C-x b" . counsel-switch-buffer)
+	 :map ivy-minibuffer-map
+	 ("C-j" . ivy-next-line-or-history)
+	 ("C-k" . ivy-previous-line-or-history))
+  :config (counsel-mode 1))
+
+;; nicer modeline
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom (doom-modeline-height 15))
+(use-package doom-themes
+  :init (load-theme 'doom-solarized-dark t))
+
+;; Useful for tracking which command and keys are used most often
+;; for optimizing work flow
+;; (use-package command-log-mode
+;;   :diminish)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(use-package)))
+ '(global-command-log-mode nil)
+ '(package-selected-packages
+   '(doom-themes doom-modeline command-log-mode diminish counsel ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:height 1.0)))))
