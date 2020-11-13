@@ -51,12 +51,17 @@
 ;; nicer modeline
 (use-package all-the-icons)
 
+(use-package doom-themes
+  :init (load-theme 'doom-solarized-light t))
+
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom (doom-modeline-height 15))
-(use-package doom-themes
-  :init (load-theme 'doom-solarized-dark t))
+  :custom
+  (doom-modeline-height 14)
+  (doom-modeline-bar-width 1))
+(set-face-attribute 'mode-line nil :family (face-attribute 'default :family) :height 100)
+(set-face-attribute 'mode-line-inactive nil :family (face-attribute 'default :family) :height 100)
 
 ;; Useful for tracking which command and keys are used most often
 ;; for optimizing work flow
@@ -68,7 +73,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(global-command-log-mode nil)
+ '(custom-safe-themes
+   '("37144b437478e4c235824f0e94afa740ee2c7d16952e69ac3c5ed4352209eefb" default))
  '(package-selected-packages
    '(doom-themes doom-modeline command-log-mode diminish counsel ivy use-package)))
 (custom-set-faces
@@ -76,4 +82,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:height 1.0)))))
+)
