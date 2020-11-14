@@ -46,7 +46,7 @@
 	 :map ivy-minibuffer-map
 	 ("C-j" . ivy-next-line-or-history)
 	 ("C-k" . ivy-previous-line-or-history))
-  :config (counsel-mode 1))
+  :init (ivy-mode 1))
 
 ;; nicer modeline
 (use-package all-the-icons)
