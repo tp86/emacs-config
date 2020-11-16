@@ -75,6 +75,7 @@
 (global-display-line-numbers-mode t)
 ;; ...but disable for some modes
 (dolist (mode '(org-mode-hook
+		help-mode-hook
 		term-mode-hook
 		shell-mode-hook
 		eshell-mode-hook))
