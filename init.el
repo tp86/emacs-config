@@ -13,8 +13,11 @@
 (setq visible-bell t)
 
 ;; set default font if available
-(if (member "Hack" (font-family-list))
-    (set-face-attribute 'default nil :font "Hack" :height 120))
+(setq my-font "Hack")
+(if (member my-font (font-family-list))
+    (setq my-existing-font my-font)
+  (setq my-existing-font "Courier"))
+(set-face-attribute 'default nil :font my-existing-font :height 120)
 
 ;; Keybindings
 ;; make ESC behave like C-g, just for convenience
@@ -60,8 +63,8 @@
   :custom
   (doom-modeline-height 14)
   (doom-modeline-bar-width 1))
-(set-face-attribute 'mode-line nil :family (face-attribute 'default :family) :height 100)
-(set-face-attribute 'mode-line-inactive nil :family (face-attribute 'default :family) :height 100)
+(set-face-attribute 'mode-line nil :family my-existing-font :height 100)
+(set-face-attribute 'mode-line-inactive nil :family my-existing-font :height 100)
 
 ;; Useful for tracking which command and keys are used most often
 ;; for optimizing work flow
