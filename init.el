@@ -41,7 +41,7 @@
 (setq use-package-always-ensure t)
 (use-package diminish)
 
-;; counsel completion package
+;; Counsel completion package
 (use-package counsel
   :diminish
   :bind (("C-s" . swiper)
@@ -49,27 +49,40 @@
 	 :map ivy-minibuffer-map
 	 ("C-j" . ivy-next-line-or-history)
 	 ("C-k" . ivy-previous-line-or-history))
-  :init (ivy-mode 1))
+  :init
+  (ivy-mode 1)
+  (counsel-mode 1))
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
 
-;; nicer modeline
-(use-package all-the-icons)
-
+;; themes must be configured first to avoid overriding faces for modeline
 (use-package doom-themes
   :init (load-theme 'doom-solarized-light t))
 
+;; Nicer modeline
+(use-package all-the-icons) ; dependency
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
   :custom
-  (doom-modeline-height 14)
+  (doom-modeline-height 30)
   (doom-modeline-bar-width 1))
 (set-face-attribute 'mode-line nil :family my-existing-font :height 100)
 (set-face-attribute 'mode-line-inactive nil :family my-existing-font :height 100)
+
+;; Helpers
 
 ;; Useful for tracking which command and keys are used most often
 ;; for optimizing work flow
 ;; (use-package command-log-mode
 ;;   :diminish)
+
+;; Help for available keybindings
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
 
 ;; Enable line numbers globally
 (global-display-line-numbers-mode t)
@@ -81,18 +94,23 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; Rainbow parentheses in programming buffers
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(counsel-mode t)
  '(custom-safe-themes
    '("37144b437478e4c235824f0e94afa740ee2c7d16952e69ac3c5ed4352209eefb" default))
  '(package-selected-packages
-   '(doom-themes doom-modeline command-log-mode diminish counsel ivy use-package)))
+   '(ivy-rich which-key rainbow-delimiters doom-themes doom-modeline command-log-mode diminish counsel ivy use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
