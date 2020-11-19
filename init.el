@@ -96,7 +96,8 @@
 
 ;; More UI enhancements
 ;; Enable line numbers globally
-(global-display-line-numbers-mode 'relative)
+(global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
 ;; ...but disable for some modes
 (dolist (mode '(org-mode-hook
 		help-mode-hook
